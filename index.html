@@ -49,6 +49,7 @@
       async componentDidMount(){
         const user = await fetchUser();
         const companies = (await axios(`${API}/companies`)).data;
+        const following = [];
         this.setState({ user, companies });
       }
 
@@ -59,7 +60,10 @@
             <h1>Welcome { user.fullName }</h1>
             <ul>
               {
-                companies.map( company => <li key={ company.id }>{ company.name }</li>)
+                companies.map( company => <li
+                 key={ company.id }>
+                 { company.name }
+                 </li>)
               }
             </ul>
           </div>
