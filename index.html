@@ -76,21 +76,19 @@
           companies: [],
           following: []
         };
+        this.onChange = this.onChange.bind(this);
       }
 
-      onChange({company, followed, rating}){
+      onChange(company, followed, rating){
         if(followed){
           if(rating){
             // Axios update - then set the state
-
-
             console.log('update it');
           }
           else {
             // axios delete - then set the state
             console.log('delete it');
           }
-
         }
         else {
           // axios post - then set the state
@@ -108,11 +106,12 @@
 
       render(){
         const { user, companies, following } = this.state;
+        const { onChange } = this;
         return (
           <div>
             <h1>Welcome { user.fullName }</h1>
               {
-                companies.map(company => <CompanyFollowing key={ company.id } followed={ following.find(f => f.companyId === company.id ) } company={ company } />)
+                companies.map(company => <CompanyFollowing key={ company.id } followed={ following.find(f => f.companyId === company.id ) } company={ company } onChange={ onChange }/>)
               }
           </div>
         )
