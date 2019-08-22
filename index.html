@@ -55,7 +55,7 @@
       return (
         <li className={followed ? 'followed' : ''}>
           {company.name}
-          <select value={ followed ? followed.rating : ''} onChange={ (ev)=> onChange(company, followed, ev.target.value)}>
+          <select value={ followed ? followed.rating : ''} onChange={((ev) => onChange(company, followed, ev.target.value))}>
             {
               ['', 1, 2, 3, 4, 5].map(num => <option key ={ num }> { num }</option>)
             }
@@ -82,6 +82,8 @@
         if(followed){
           if(rating){
             // Axios update - then set the state
+
+
             console.log('update it');
           }
           else {
