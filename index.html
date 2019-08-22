@@ -83,7 +83,7 @@
         if(followed){
           if(rating){
             // Axios update - then set the state
-            axios.put(`${API}/users/${user.id}/followingCompanies/${user.followingId}`)
+            axios.put(`${API}/users/${user.id}/followingCompanies/${user.followingId}`, {rating: ${rating}, companyId: ${company.id} } )
             console.log('update it');
           }
           else {
