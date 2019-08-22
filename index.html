@@ -17,6 +17,10 @@
       padding: 1rem;
     }
 
+    .followed {
+      background-color: tomato;
+      color: white;
+    }
 
   </style>
 </head>
@@ -49,7 +53,7 @@
 
     const CompanyFollowing = ({company, followed, onChange}) => {
       return (
-        <li>
+        <li className={followed ? 'followed' : ''}>
           {company.name}
           <select value={ followed ? followed.rating : ''} onChange={ (ev)=> onChange(company, followed, ev.target.value)}>
             {
@@ -94,11 +98,9 @@
 
       async componentDidMount(){
         const user = await fetchUser();
+        //const companies = (await axios(`${API}/users/0fc3e85a-37ac-4f58-aecf-56f86caec2fe/followingCompanies`)).data;
         const companies = (await axios(`${API}/companies`)).data;
-        const following = [
-
-          // axios call?
-        ];
+        const following = (await axios(`${API}/users/0fc3e85a-37ac-4f58-aecf-56f86caec2fe/followingCompanies`)).data;
         this.setState({ user, companies, following });
       }
 
