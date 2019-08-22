@@ -41,21 +41,27 @@
       constructor(){
         super();
         this.state = {
-          user: {}
+          user: {},
+          companies: []
         };
       }
 
       async componentDidMount(){
         const user = await fetchUser();
         const companies = (await axios(`${API}/companies`)).data;
-        this.setState({ user });
+        this.setState({ user, companies });
       }
 
       render(){
-        const { user } = this.state;
+        const { user, companies } = this.state;
         return (
           <div>
             <h1>Welcome { user.fullName }</h1>
+            <ul>
+              {
+                companies.map( company => <li key={ company.id }>{ company.name }</li>)
+              }
+            </ul>
           </div>
         )
       }
