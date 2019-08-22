@@ -4,9 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+  <title>Acme Company Following</title>
 </head>
 <body>
- <p>test push</p>
+  <div id="root"></div>
+
+  <script type='text/babel'>
+    const { Component } = React;
+    const { render } = ReactDOM;
+
+    class App extends Component {
+      constructor(){
+        super();
+      }
+      render(){
+        return <hr />;
+      }
+    }
+    const root = document.querySelector('#root');
+    render(<App />, root);
+  </script>
 </body>
 </html>
