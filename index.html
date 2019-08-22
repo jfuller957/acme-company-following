@@ -9,6 +9,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
   <title>Acme Company Following</title>
+
 </head>
 <body>
   <div id="root"></div>
@@ -37,13 +38,14 @@
       return  user;
     };
 
-    const CompanyFollowing = ({company, following, onChange}) => {
+    const CompanyFollowing = ({company, followed, onChange}) => {
       return (
         <li>
           {company.name}
-          <select>{
-          ['', 1, 2, 3, 4, 5].map(num => <option key ={ num }> { num }</option>)
-          }
+          <select value={ followed ? followed.rating : ''} onChange={ (ev)=> onChange(company, followed, ev.target.value)}>
+            {
+              ['', 1, 2, 3, 4, 5].map(num => <option key ={ num }> { num }</option>)
+            }
           </select>
         </li>
       )
@@ -58,24 +60,46 @@
         super();
         this.state = {
           user: {},
-          companies: []
+          companies: [],
+          following: []
         };
+      }
+
+      onChange({company, followed, rating}){
+        if(followed){
+          if(rating){
+            // Axios update - then set the state
+            console.log('update it');
+          }
+          else {
+            // axios delete - then set the state
+            console.log('delete it');
+          }
+
+        }
+        else {
+          // axios post - then set the state
+          console.log('create it');
+        }
       }
 
       async componentDidMount(){
         const user = await fetchUser();
         const companies = (await axios(`${API}/companies`)).data;
-        const following = [];
-        this.setState({ user, companies });
+        const following = [
+
+          // axios call?
+        ];
+        this.setState({ user, companies, following });
       }
 
       render(){
-        const { user, companies } = this.state;
+        const { user, companies, following } = this.state;
         return (
           <div>
             <h1>Welcome { user.fullName }</h1>
               {
-                companies.map(company => <CompanyFollowing key={ company.id } company={ company }/>)
+                companies.map(company => <CompanyFollowing key={ company.id } followed={ following.find(f => f.companyId === company.id ) } company={ company } />)
               }
           </div>
         )
