@@ -79,19 +79,22 @@
         this.onChange = this.onChange.bind(this);
       }
 
-      onChange(company, followed, rating){
+      onChange(company, followed, rating, user){
         if(followed){
           if(rating){
             // Axios update - then set the state
+            axios.put(`${API}/users/${user.id}/followingCompanies/${user.followingId}`)
             console.log('update it');
           }
           else {
             // axios delete - then set the state
+            axios.delete
             console.log('delete it');
           }
         }
         else {
           // axios post - then set the state
+
           console.log('create it');
         }
       }
