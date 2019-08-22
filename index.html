@@ -51,11 +51,11 @@
       return  user;
     };
 
-    const CompanyFollowing = ({company, followed, onChange}) => {
+    const CompanyFollowing = ({company, followed, onChange, user}) => {
       return (
         <li className={followed ? 'followed' : ''}>
           {company.name}
-          <select value={ followed ? followed.rating : ''} onChange={((ev) => onChange(company, followed, ev.target.value))}>
+          <select value={ followed ? followed.rating : ''} onChange={((ev) => onChange(company, followed, ev.target.value, user))}>
             {
               ['', 1, 2, 3, 4, 5].map(num => <option key ={ num }> { num }</option>)
             }
@@ -103,7 +103,7 @@
         const user = await fetchUser();
         //const companies = (await axios(`${API}/users/0fc3e85a-37ac-4f58-aecf-56f86caec2fe/followingCompanies`)).data;
         const companies = (await axios(`${API}/companies`)).data;
-        const following = (await axios(`${API}/users/0fc3e85a-37ac-4f58-aecf-56f86caec2fe/followingCompanies`)).data;
+        const following = (await axios(`${API}/users/${user.id}/followingCompanies`)).data;
         this.setState({ user, companies, following });
       }
 
@@ -114,7 +114,7 @@
           <div>
             <h1>Welcome { user.fullName }</h1>
               {
-                companies.map(company => <CompanyFollowing key={ company.id } followed={ following.find(f => f.companyId === company.id ) } company={ company } onChange={ onChange }/>)
+                companies.map(company => <CompanyFollowing key={ company.id } followed={ following.find(f => f.companyId === company.id ) } company={ company } user={user} onChange={ onChange } />)
               }
           </div>
         )
