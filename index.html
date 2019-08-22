@@ -37,6 +37,22 @@
       return  user;
     };
 
+    const CompanyFollowing = ({company, following, onChange}) => {
+      return (
+        <li>
+          {company.name}
+          <select>{
+          ['', 1, 2, 3, 4, 5].map(num => <option key ={ num }> { num }</option>)
+          }
+          </select>
+        </li>
+      )
+
+    }
+
+
+
+
     class App extends Component {
       constructor(){
         super();
@@ -58,14 +74,9 @@
         return (
           <div>
             <h1>Welcome { user.fullName }</h1>
-            <ul>
               {
-                companies.map( company => <li
-                 key={ company.id }>
-                 { company.name }
-                 </li>)
+                companies.map(company => <CompanyFollowing key={ company.id } company={ company }/>)
               }
-            </ul>
           </div>
         )
       }
